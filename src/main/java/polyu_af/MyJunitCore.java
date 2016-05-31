@@ -2,6 +2,7 @@ package polyu_af;
 
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.runner.Description;
@@ -71,7 +72,7 @@ public class MyJunitCore {
         if (testCluster == null) {
             return;
         }
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         String jsonStr = gson.toJson(testCluster);
         logger.info(jsonStr);
         //        logger.info("Successful:" + result.wasSuccessful());

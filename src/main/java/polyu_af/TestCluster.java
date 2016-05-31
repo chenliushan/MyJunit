@@ -20,4 +20,20 @@ public class TestCluster {
     public void setFailureTestList(List<TestUnit> failureTestList) {
         this.failureTestList = failureTestList;
     }
+
+    public int getFailureCount() {
+        return failureCount;
+    }
+
+    public List<TestUnit> getFailureTestList() {
+        return failureTestList;
+    }
+
+    public int getRunCount() {
+        return runCount;
+    }
+
+    public boolean isSuccessful() {
+        return successful;
+    }
 }

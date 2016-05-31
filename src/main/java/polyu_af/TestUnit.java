@@ -17,4 +17,16 @@ public class TestUnit {
         Exception = exception;
         this.methodName = methodName;
     }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public String getException() {
+        return Exception;
+    }
+
+    public String getMethodName() {
+        return methodName;
+    }
 }
