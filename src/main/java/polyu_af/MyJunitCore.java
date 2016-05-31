@@ -20,7 +20,9 @@ import java.util.List;
  * Created by liushanchen on 16/5/26.
  */
 public class MyJunitCore {
-    private static Logger logger = LogManager.getLogger("MyJunitResult");
+    private static Logger logger = LogManager.getLogger(MyJunitConstants.MyJunitLogName);
+    private static Logger loggerM = LogManager.getLogger(MyJunitConstants.MLogName);
+    private static Logger loggerVar = LogManager.getLogger(MyJunitConstants.VarLogName);
 
     public static void main(String[] args) throws ClassNotFoundException {
         if (args.length < 1) {
@@ -48,7 +50,7 @@ public class MyJunitCore {
             return null;
         }
 
-//        core.addListener(new RingingListener());
+        core.addListener(new RingingListener());
         return core.run(request);
     }
 
@@ -85,25 +87,32 @@ public class MyJunitCore {
         @Override
         public void testFailure(Failure failure) throws Exception {
             super.testFailure(failure);
-            logger.info("####");
-            logger.info("testFailure.getClassName:" + failure.getDescription().getClassName() + "#" + failure.getDescription().getMethodName());
-            logger.info("testFailure.getException:" + failure.getException());
+//            loggerVar.info("########################");
+//            loggerM.info("########################"+ failure.getDescription().getClassName() + "#" + failure.getDescription().getMethodName());
+//            logger.info("testFailure.getException:" + failure.getException());
         }
 
         @Override
         public void testFinished(Description description) throws Exception {
             super.testFinished(description);
+            loggerM.info(MyJunitConstants.TestFinish+ description.getClassName() + "#" + description.getMethodName());
+
+//            loggerVar.info("-----------------");
         }
 
         @Override
         public void testStarted(Description description) throws Exception {
             super.testStarted(description);
+            loggerM.info(MyJunitConstants.TestStart+ description.getClassName() + "#" + description.getMethodName());
+
         }
 
 
         @Override
         public void testRunFinished(Result result) throws Exception {
             super.testRunFinished(result);
+
+
         }
 
         @Override
