@@ -6,16 +6,33 @@ package polyu_af;
 public class TestUnit {
     private String className;
     private String methodName;
-    private String Exception;
+    private String exception;
+    private String firstTrace;
+    private boolean isPassing;
 
-    public String setQualifyName() {
+    public String getQualifyName() {
         return className+"#"+methodName;
     }
 
-    public TestUnit(String className, String methodName, String exception) {
+    public TestUnit(String className, String methodName) {
         this.className = className;
-        Exception = exception;
         this.methodName = methodName;
+    }
+
+    public TestUnit(String className, String methodName, String exception, String trace) {
+        this.isPassing =false;
+        this.className = className;
+        this.exception = exception;
+        this.methodName = methodName;
+        this.firstTrace = trace;
+    }
+
+    public boolean isPassing() {
+        return isPassing;
+    }
+
+    public void setPassing(boolean passing) {
+        isPassing = passing;
     }
 
     public String getClassName() {
@@ -23,10 +40,16 @@ public class TestUnit {
     }
 
     public String getException() {
-        return Exception;
+        return exception;
     }
 
     public String getMethodName() {
         return methodName;
     }
+
+    public String getTrace() {
+        return firstTrace;
+    }
+
+
 }

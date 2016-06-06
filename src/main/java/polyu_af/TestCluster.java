@@ -5,6 +5,10 @@ import java.util.List;
 /**
  * Created by liushanchen on 16/5/28.
  */
+
+/**
+ * A cluster of test - one test class which contains a list of test units
+ */
 public class TestCluster {
     private boolean successful;
     private int failureCount;

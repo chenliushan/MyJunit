@@ -63,7 +63,8 @@ public class MyJunitCore {
         List<TestUnit> unitList = new ArrayList<TestUnit>();
         for (Failure f : result.getFailures()) {
             Description d = f.getDescription();
-            TestUnit tu = new TestUnit(d.getClassName(), d.getMethodName(), f.getException().toString());
+            String firstTrace = getFirstLineTrace(f.getTrace());
+            TestUnit tu = new TestUnit(d.getClassName(), d.getMethodName(), f.getException().toString(), firstTrace);
             unitList.add(tu);
         }
         testCluster.setFailureTestList(unitList);
@@ -77,33 +78,35 @@ public class MyJunitCore {
         Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         String jsonStr = gson.toJson(testCluster);
         logger.info(jsonStr);
-        //        logger.info("Successful:" + result.wasSuccessful());
-        //        logger.info("FailureCount:" + result.getFailureCount());
-        //        logger.info("RunCount:" + result.getRunCount());
     }
 
+    private static String getFirstLineTrace(String trace) {
+        if (trace != null) {
+            String[] traces = trace.split("\n");
+            if (traces.length > 1) {
+                return traces[1];
+            }
+        }
+        return null;
+
+    }
 
     private static class RingingListener extends RunListener {
         @Override
         public void testFailure(Failure failure) throws Exception {
             super.testFailure(failure);
-//            loggerVar.info("########################");
-//            loggerM.info("########################"+ failure.getDescription().getClassName() + "#" + failure.getDescription().getMethodName());
-//            logger.info("testFailure.getException:" + failure.getException());
         }
 
         @Override
         public void testFinished(Description description) throws Exception {
             super.testFinished(description);
-            loggerM.info(MyJunitConstants.TestFinish+ description.getClassName() + "#" + description.getMethodName());
-
-//            loggerVar.info("-----------------");
+            loggerM.info(MyJunitConstants.TestFinish + description.getClassName() + "#" + description.getMethodName());
         }
 
         @Override
         public void testStarted(Description description) throws Exception {
             super.testStarted(description);
-            loggerM.info(MyJunitConstants.TestStart+ description.getClassName() + "#" + description.getMethodName());
+            loggerM.info(MyJunitConstants.TestStart + description.getClassName() + "#" + description.getMethodName());
 
         }
 
